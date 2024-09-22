@@ -18,11 +18,21 @@ module "edrs_vpc" {
   }
 }
 
-module "rsa_ssh" {
+module "rsa_ssh_primary" {
   source        = "./rsa"
   algorithm     = var.algorithm
   rsa_bits      = var.rsa_bits
-  key_pair_name = var.key_pair_name
+  key_pair_name = var.key_pair_name_1
+  providers = {
+    aws = aws.us_east
+  }
+}
+
+module "rsa_ssh_dr" {
+  source        = "./rsa"
+  algorithm     = var.algorithm
+  rsa_bits      = var.rsa_bits
+  key_pair_name = var.key_pair_name_2
   providers = {
     aws = aws.us_west
   }
@@ -30,7 +40,7 @@ module "rsa_ssh" {
 
 module "nodes_ec2" {
   source               = "./ec2"
-  key_pair_name        = module.rsa_ssh.key-pair-name
+  key_pair_name        = module.rsa_ssh_primary.key-pair-name
   instance_type        = var.instance_type
   root_vol_size        = var.root_vol_size
   root_vol_type        = var.root_vol_type

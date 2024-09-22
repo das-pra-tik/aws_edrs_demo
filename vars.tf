@@ -62,9 +62,13 @@ variable "rsa_bits" {
   type    = number
   default = 4096
 }
-variable "key_pair_name" {
+variable "key_pair_name_1" {
   type    = string
-  default = "edrs_demo"
+  default = "edrs_primary"
+}
+variable "key_pair_name_2" {
+  type    = string
+  default = "edrs_dr"
 }
 variable "instance_type" {
   type    = string
