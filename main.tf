@@ -44,6 +44,8 @@ module "nodes_ec2" {
   instance_type        = var.instance_type
   root_vol_size        = var.root_vol_size
   root_vol_type        = var.root_vol_type
+  data_vol_size        = var.data_vol_size
+  data_vol_type        = var.data_vol_type
   USER_DATA            = var.USER_DATA
   instance_sec_grp_ids = [module.aws_security_grp_primary.ec2-sg-ids]
   node_subnet_ids      = module.primary_vpc.primary-vpc-public-subnet-ids

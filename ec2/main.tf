@@ -35,6 +35,9 @@ resource "aws_instance" "target_nodes" {
   iam_instance_profile        = aws_iam_instance_profile.ec2_profile.name
   monitoring                  = true
   source_dest_check           = true
+  tags = {
+    Name = "edrs-instance-${count.index + 1}"
+  }
   lifecycle {
     ignore_changes = [tags["Create_date_time"], ami]
   }
@@ -57,8 +60,8 @@ resource "aws_ebs_volume" "ebs-vol01" {
   depends_on        = [aws_instance.target_nodes]
   count             = length(var.node_subnet_ids)
   availability_zone = data.aws_availability_zones.available_azs.names[count.index]
-  size              = 15
-  type              = "gp3"
+  size              = var.data_vol_size
+  type              = var.data_vol_type
   encrypted         = "true"
   //kms_key_id        = var.kms_key_id
   final_snapshot = false

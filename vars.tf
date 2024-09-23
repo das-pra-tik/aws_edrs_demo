@@ -80,7 +80,15 @@ variable "root_vol_type" {
 }
 variable "root_vol_size" {
   type    = number
-  default = 20
+  default = 10
+}
+variable "data_vol_type" {
+  type    = string
+  default = "gp3"
+}
+variable "data_vol_size" {
+  type    = number
+  default = 5
 }
 variable "USER_DATA" {
   type    = string
